@@ -1,8 +1,5 @@
-import filmpp from "../assets/filmpp.png";
 import pfp from "../assets/DSCF1411-HD-locontrast.jpg";
 import { ArrowDown, Rocket } from "lucide-react";
-
-
 
 export const HeroSection = () => {
     return <section 
@@ -21,9 +18,9 @@ export const HeroSection = () => {
           <p className="opacity-0 animate-fade-in-delay-2 text-5xl md:text-7xl font-extrabold text-primary font-serif">BÓSQUEZ</p>
           
         </div>
-        <img 
-          src={pfp} 
-          alt="mi pfp" 
+        <img
+          src={pfp}
+          alt="Brandon Bósquez"
           className="opacity-0 animate-fade-in-delay-3 mt-6 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
         />
       </div>
@@ -32,7 +29,7 @@ export const HeroSection = () => {
       {/* Right side: paragraph */}
       <div className="md:w-1/2 flex flex-col items-center mt-4 justify-center">
         <p className="opacity-0 animate-fade-in-delay-3 text-base md:text-lg text-primary-foreground">
-          I’m a passionate <span className="font-bold text-primary"> IT student </span> who loves building creative projects and learning new technologies. 
+          I’m a passionate <span className="font-bold text-primary"> IT student </span> specializing in Game Development, currently looking for my next internship opportunity.
           This portfolio showcases my journey through school and beyond <Rocket  strokeWidth={1.5} className="inline-block text-secondary"></Rocket>
         </p>
 

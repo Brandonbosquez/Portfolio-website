@@ -1,4 +1,4 @@
-import { Briefcase, Code, Heart, User, User2 } from "lucide-react"
+import { Briefcase, Code, Heart, User } from "lucide-react"
 
 
 export const AboutSection = () => {

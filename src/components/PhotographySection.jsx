@@ -127,7 +127,33 @@ const photos = [
     location: "Paris, France",
     date: "2025",
   },
-
+  {
+    id: 13,
+    src: "/photos/amsterdam.jpg",
+    title: "Canal Cruise",
+    camera: "Fujifilm X‑T30 II",
+    lens: "XF 27mm f/4.5",
+    location: "Amsterdam, Netherlands",
+    date: "2025",
+  },
+  {
+    id: 14,
+    src: "/photos/helsinki-3.jpg",
+    title: "Pilot Boat",
+    camera: "Fujifilm X‑T30 II",
+    lens: "XF 27mm f/3.6",
+    location: "Helsinki, Finland",
+    date: "2025",
+  },
+  {
+    id: 15,
+    src: "/photos/panama-1.JPG",
+    title: "Plátanos",
+    camera: "Fujifilm X‑T30 II",
+    lens: "XF 27mm f/2.8",
+    location: "Panama",
+    date: "2024",
+  },
 
 ];
 
@@ -154,9 +180,10 @@ export const PhotographySection = () => {
               className="relative group overflow-hidden rounded-lg shadow-xs bg-card cursor-pointer"
               onClick={() => setSelectedPhoto(photo)}
             >
-              <img 
-                src={photo.src} 
-                alt={photo.title} 
+              <img
+                src={photo.src}
+                alt={photo.title}
+                loading="lazy"
                 className="w-full h-full object-center object-cover transition-transform duration-500 group-hover:scale-105"
               />
 

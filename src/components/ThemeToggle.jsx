@@ -4,39 +4,26 @@ import { cn } from "../lib/utils";
 
 
 export const ThemeToggle = () => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(
+        () => localStorage.getItem("theme") === "dark"
+    );
 
-    useEffect (() => {
-        const storedTheme = localStorage.getItem("theme")
-        if (storedTheme === "dark") {
-            setIsDarkMode(true)
-            document.documentElement.classList.add("dark");
-        } else {
-            localStorage.setItem("theme", "light");
-            setIsDarkMode(false);
-
-        }
-    }
-)
-
+    useEffect(() => {
+        document.documentElement.classList.toggle("dark", isDarkMode);
+        localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+    }, [isDarkMode]);
 
     const toggleTheme = () => {
-        if (isDarkMode) {
-            document.documentElement.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-            setIsDarkMode(false);
-        }
-        else {
-            document.documentElement.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-            setIsDarkMode(true);
-        }
+        setIsDarkMode((prev) => !prev);
     };
 
 
 
     return (
-        <button onClick={toggleTheme} className={cn("fixed max-sm:hidden top-5 right-5 z-50 p-2 rounded-full transition-colors duration-300",
+        <button
+            onClick={toggleTheme}
+            aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            className={cn("fixed max-sm:hidden top-5 right-5 z-50 p-2 rounded-full transition-colors duration-300",
             "focus:outline-hidden"
         )}>
             {" "}

@@ -12,7 +12,7 @@
 
   --color-card: hsl(var(--card));
 
-  --animate-float: float 6s ease-in-out infinate;
+  --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
   --animate-fade-in: fade-in 0.7s ease-out forwards;
   --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;
@@ -114,6 +114,7 @@
 
   html {
     @apply scroll-smooth;
+    font-size: 112.5%;
   }
 
   body {
@@ -185,13 +186,13 @@
 }
 
 @utility star {
-  @apply absolute rounded-full bg-black;
-  box-shadow: 0 0 10px 2px (73, 80, 87, 0.4)
+  @apply absolute rounded-full bg-foreground;
+  box-shadow: 0 0 10px 2px rgba(73, 80, 87, 0.4);
 }
 
 @utility meteor {
   @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px (73, 80, 87, 0.3)
+  box-shadow: 0 0 10px 5px rgba(73, 80, 87, 0.3);
 }
 
 #root {

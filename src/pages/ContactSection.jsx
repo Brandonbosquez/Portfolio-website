@@ -18,16 +18,16 @@ export const ContactSection = () => {
 
           {/* Email */}
           <a 
-            href="mailto:your-email@example.com"
+            href="mailto:brandon.bosquez@outlook.com"
             className="flex items-center justify-center gap-3 p-4 rounded-lg bg-card/70 shadow hover:shadow-md transition"
           >
             <Mail className="w-5 h-5 text-secondary" />
-            <span className="text-secondary">brandon.bosquez@yahoo.com</span>
+            <span className="text-secondary">brandon.bosquez@outlook.com</span>
           </a>
 
           {/* Phone */}
           <a 
-            href="tel:+358401234567"
+            href="tel:+358451662415"
             className="flex items-center justify-center gap-3 p-4 rounded-lg bg-card/70 shadow hover:shadow-md transition"
           >
             <Phone className="w-5 h-5 text-secondary" />

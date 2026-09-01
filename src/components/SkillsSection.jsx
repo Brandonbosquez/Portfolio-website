@@ -1,38 +1,55 @@
 import { useState } from "react";
 import { cn } from "../lib/utils";
 
-const skills = [
-    //Frontend
-    { name: "HTML/CSS", level: 65, category: "frontend"},
-    { name: "JavaScript", level: 60, category: "frontend"},
-    { name: "Tailwind", level: 20, category: "frontend"},
-    { name: "Node", level: 20, category: "frontend"},
-    //{ name: " ", level: 95, category: "frontend"},
+const skillCategories = [
+    {
+        id: "languages",
+        name: "Languages",
+        skills: [
+            { name: "C#" },
+            { name: "Python" },
+            { name: "JavaScript" },
+            { name: "HTML/CSS" },
+            { name: "C++", note: "Familiar" },
+        ],
+    },
+    {
+        id: "frameworks",
+        name: "Frameworks & Tools",
+        skills: [
+            { name: "React" },
+            { name: "Tailwind CSS" },
+            { name: "Git/GitHub" },
+            { name: "VS Code" },
+            { name: "Flask", note: "Familiar" },
+            { name: "MongoDB", note: "Familiar" },
+            { name: "SQL", note: "Familiar" },
+        ],
+    },
+    {
+        id: "gamedev",
+        name: "Game Development",
+        skills: [
+            { name: "Unity" },
+            { name: "Blender", note: "Basic" },
+            { name: "Unreal Engine", note: "Basic" },
+        ],
+    },
+];
 
-    //Backend
-    //{ name: " ", level: 50, category: "backend"},
-    { name: "Python", level: 40, category: "backend"},
-    { name: "C++", level: 40, category: "backend"},
-    { name: "C#", level: 50, category: "backend"},
-    { name: "SQL", level: 50, category: "backend"},
-    
+const categories = ["all", ...skillCategories.map((c) => c.id)];
 
-    //Tools
-    //{ name: " ", level: 50, category: "backend"},
-    { name: "Github", level: 65, category: "tools"},
-    { name: "Unity", level: 70, category: "tools"},
-    { name: "Blender", level: 45, category: "tools"},
-    { name: "VS Code", level: 65, category: "tools"},
-]
-
-const categories = ["all", "frontend", "backend", "tools"];
+const categoryLabel = (id) =>
+    id === "all" ? "all" : skillCategories.find((c) => c.id === id).name;
 
 export const SkillsSection = () => {
     const [activeCategory, setActiveCategory] = useState("all");
 
-    const filteredSkills = skills.filter(
-        (skill) => activeCategory === "all" || skill.category === activeCategory );
-    
+    const visibleCategories =
+        activeCategory === "all"
+            ? skillCategories
+            : skillCategories.filter((c) => c.id === activeCategory);
+
     return (
     <section id="skills" className="py-24 px-4 relative">
         <div className="container mx-auto max-w-5xl">
@@ -41,37 +58,43 @@ export const SkillsSection = () => {
             </h2>
 
             <div className="flex flex-wrap justify-center gap-4 mb-12">
-                {categories.map((category, key) => (
-                    <button key={key} 
+                {categories.map((category) => (
+                    <button key={category}
                     onClick={() => setActiveCategory(category)}
-                    className= {cn("px-5 rounded-full transition-colors duration-300 capitalize",
+                    className= {cn("px-5 py-1 rounded-full transition-colors duration-300 capitalize",
                         activeCategory === category ? "bg-card text-primary-foreground" : "bg-transparent text-foreground hover:bg-secondary"
                     )}>
-                        {category}
+                        {categoryLabel(category)}
                     </button>
 
                 ))}
 
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredSkills.map((skills,key) => (
-                    <div key={key} className="bg-card p-6 rounded-lg shadow-xs card-hover text-secondary">
-                        <div>
-                            <h3 className="text-lg p-2">
-                                {skills.name}
-                            </h3>
-                        </div>
-                        <div className="w-full bg-secondary/50 h-2 reounded-full overflow-hidden"> 
-                        <div 
-                            className="bg-primary h-2 rounded-full origin-left animate-[grow_1.5s_ease_out" 
-                            style ={{width: skills.level + "%"}}
-                        />
+            <div className="space-y-10">
+                {visibleCategories.map((category) => (
+                    <div key={category.id}>
+                        <h3 className="text-lg font-semibold text-secondary mb-4 text-center md:text-left">
+                            {category.name}
+                        </h3>
+                        <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+                            {category.skills.map((skill) => (
+                                <span
+                                    key={skill.name}
+                                    className="px-4 py-2 rounded-full bg-card text-secondary text-sm font-medium card-hover"
+                                >
+                                    {skill.name}
+                                    {skill.note && (
+                                        <span className="ml-1.5 text-xs text-primary-foreground/60">
+                                            · {skill.note}
+                                        </span>
+                                    )}
+                                </span>
+                            ))}
                         </div>
                     </div>
                 ))}
             </div>
-
 
         </div>
     </section>
