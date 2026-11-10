@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLanguage } from "../i18n/useLanguage";
 
 const photos = [
   {
@@ -158,18 +159,23 @@ const photos = [
 ];
 
 export const PhotographySection = () => {
+  const { t } = useLanguage();
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+
+  // Photo data holds English location strings; other languages map them.
+  const locations = t("photography.locations");
+  const locationLabel = (location) => locations[location] ?? location;
 
   return (
     <section id="photography" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-6xl">
         
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          Photography <span className="text-primary"> Gallery</span>
+          {t("photography.title.lead")} <span className="text-primary">{t("photography.title.accent")}</span>
         </h2>
 
         <p className="text-center text-primary-foreground mb-12 max-w-2xl mx-auto">
-          A collection of moments I've captured over the years. Click any photo to view it in full resolution.
+          {t("photography.intro")}
         </p>
 
         {/* GRID */}
@@ -194,7 +200,7 @@ export const PhotographySection = () => {
                 flex flex-col justify-end p-4 text-white
               ">
                 <h3 className="text-lg font-semibold">{photo.title}</h3>
-                <p className="text-sm opacity-90">{photo.location}</p>
+                <p className="text-sm opacity-90">{locationLabel(photo.location)}</p>
                 <p className="text-xs opacity-80 mt-1">
                   {photo.camera} • {photo.lens}
                 </p>

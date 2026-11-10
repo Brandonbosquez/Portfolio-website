@@ -1,21 +1,19 @@
 import { useEffect, useRef } from "react";
 import { ExternalLink, Github, Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "../i18n/useLanguage";
 
+// Translatable text (role, description, ...) lives in src/i18n/translations.js,
+// keyed by `slug`. Tag labels are looked up in `tags`; anything without a
+// translation (tech names like "Unity") is shown as-is.
 const experiences = [
     {
         id: 1,
-        role: "AI Chatbot Internship",
-        organization: "Nokia / Metropolia Software Factory",
-        period: "May – August 2026",
-        description: "Developed backend services in Python using Flask and MongoDB, and built a JavaScript/HTML frontend for testing — integrated into a larger project built with the Unity game engine.",
+        slug: "chatbot",
         tags: ["Python", "Flask", "MongoDB", "JavaScript", "Unity"],
     },
     {
         id: 2,
-        role: "Unity Developer — Games Against Misinformation",
-        organization: "Erasmus+ Exchange, Lodz University of Technology, Poland",
-        period: "May – June 2026",
-        description: "Developed The Puppeteer, a small video game in Unity aimed at raising awareness about misinformation, as part of an international exchange program.",
+        slug: "erasmus",
         tags: ["Unity", "C#", "Game Design"],
     },
 ];
@@ -23,9 +21,9 @@ const experiences = [
 const projects = [
     {
         id: 1,
+        slug: "puppeteer",
         title: "The Puppeteer",
         year: "2026",
-        description: "2D narrative strategy game about how misinformation spreads through everyday choices, built during an Erasmus+ exchange in Poland.",
         image: "/projects/puppeteer.png",
         tags: ["Unity", "C#", "Erasmus+", "Group Project"],
         demoUrl: "#",
@@ -33,9 +31,9 @@ const projects = [
     },
     {
         id: 2,
+        slug: "jointed",
         title: "Jointed",
         year: "2024",
-        description: "3D Puzzle Thriller using Unity game engine",
         image: "/projects/jointed.jpg",
         tags: ["Unity", "Group Project", "C#"],
         demoUrl: "https://kermakebi.itch.io/jointed",
@@ -44,9 +42,9 @@ const projects = [
 
     {
         id: 3,
+        slug: "anima",
         title: "Anima",
         year: "2024",
-        description: "2D platformer using Unity game engine and C#",
         image: "/projects/anima.png",
         tags: ["Unity","C#","Game","Solo"],
         demoUrl: "https://brankku.itch.io/anima",
@@ -54,9 +52,9 @@ const projects = [
     },
     {
         id: 4,
+        slug: "articfacts",
         title: "Articfacts",
         year: "2024",
-        description: "Website-based card game",
         image: "/projects/artic.png",
         tags: ["Solo","HTML-CSS","Python","JavaScript","SQL"],
         demoUrl: "#",
@@ -66,7 +64,10 @@ const projects = [
 ];
 
 export const ProjectsSection = () => {
+    const { t } = useLanguage();
     const carouselRef = useRef(null);
+    const tagLabels = t("tags");
+    const tagLabel = (tag) => tagLabels[tag] ?? tag;
     const interactedRef = useRef(false);
 
     const scrollByCards = (direction) => {
@@ -144,12 +145,11 @@ export const ProjectsSection = () => {
 
             <div className="container mx-auto max-w-5xl">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-                    {" "}
-                    Experience <span className="text-primary"> & Projects </span>
+                    {t("projects.title.lead")} <span className="text-primary">{t("projects.title.accent")}</span>
                 </h2>
 
                 <p className="text-center text-primary-foreground mb-12 max-w-2xl mx-auto">
-                    Here's my professional experience so far, along with some of the projects I've worked on during the past 4 years of university.
+                    {t("projects.intro")}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
@@ -163,20 +163,20 @@ export const ProjectsSection = () => {
                                     <Briefcase className="h-5 w-5 text-secondary" />
                                 </div>
                                 <div className="text-left">
-                                    <h3 className="text-lg font-semibold text-primary">{exp.role}</h3>
-                                    <p className="text-sm text-secondary">{exp.organization}</p>
-                                    <p className="text-xs text-primary-foreground/60 mt-0.5">{exp.period}</p>
+                                    <h3 className="text-lg font-semibold text-primary">{t(`projects.experience.${exp.slug}.role`)}</h3>
+                                    <p className="text-sm text-secondary">{t(`projects.experience.${exp.slug}.organization`)}</p>
+                                    <p className="text-xs text-primary-foreground/60 mt-0.5">{t(`projects.experience.${exp.slug}.period`)}</p>
                                 </div>
                             </div>
 
                             <p className="text-primary-foreground text-sm mb-4 text-left">
-                                {exp.description}
+                                {t(`projects.experience.${exp.slug}.description`)}
                             </p>
 
                             <div className="flex flex-wrap gap-1">
                                 {exp.tags.map((tag) => (
                                     <span key={tag} className="px-2 py-1 text-xs font-medium border-primary-foreground rounded-full bg-background text-primary-foreground/70">
-                                        {tag}
+                                        {tagLabel(tag)}
                                     </span>
                                 ))}
                             </div>
@@ -185,7 +185,7 @@ export const ProjectsSection = () => {
                 </div>
 
                 <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-                    Featured <span className="text-primary">Projects</span>
+                    {t("projects.featured.lead")} <span className="text-primary">{t("projects.featured.accent")}</span>
                 </h3>
 
                 <div
@@ -211,7 +211,7 @@ export const ProjectsSection = () => {
                             <div className="flex flex-wrap gap-1 mb-4 px-1">
                                 {project.tags.map((tag) => (
                                     <span key={tag} className="px-2 py-1 text-xs font-medium border-primary-foreground rounded-full bg-background text-primary-foreground/70">
-                                        {tag}
+                                        {tagLabel(tag)}
                                     </span>
                                 ))}
 
@@ -219,7 +219,7 @@ export const ProjectsSection = () => {
 
                 <h3 className="text-xl text-primary font-semibold mb-1">{project.title} </h3>
                 <p className="text-primary-foreground text-sm mb-4">
-                    {project.description}
+                    {t(`projects.items.${project.slug}.description`)}
                 </p>
                 <div className="flex justify-between items-center">
                     <div className="flex space-x-3">
@@ -245,14 +245,14 @@ export const ProjectsSection = () => {
         <div className="hidden lg:flex justify-center gap-4 mt-8">
             <button
                 onClick={() => scrollByCards(-1)}
-                aria-label="Previous projects"
+                aria-label={t("projects.previous")}
                 className="p-2 rounded-full border border-foreground text-foreground hover:bg-secondary transition-colors duration-300"
             >
                 <ChevronLeft size={20} />
             </button>
             <button
                 onClick={() => scrollByCards(1)}
-                aria-label="Next projects"
+                aria-label={t("projects.next")}
                 className="p-2 rounded-full border border-foreground text-foreground hover:bg-secondary transition-colors duration-300"
             >
                 <ChevronRight size={20} />

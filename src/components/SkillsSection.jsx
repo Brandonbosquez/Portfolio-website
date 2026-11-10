@@ -1,49 +1,49 @@
 import { useState } from "react";
 import { cn } from "../lib/utils";
+import { useLanguage } from "../i18n/useLanguage";
 
+// Skill names are technology names and stay untranslated; only the category
+// labels and the "Familiar"/"Basic" notes go through t().
 const skillCategories = [
     {
         id: "languages",
-        name: "Languages",
         skills: [
             { name: "C#" },
             { name: "Python" },
             { name: "JavaScript" },
             { name: "HTML/CSS" },
-            { name: "C++", note: "Familiar" },
+            { name: "C++", note: "familiar" },
         ],
     },
     {
         id: "frameworks",
-        name: "Frameworks & Tools",
         skills: [
             { name: "React" },
             { name: "Tailwind CSS" },
             { name: "Git/GitHub" },
             { name: "VS Code" },
-            { name: "Flask", note: "Familiar" },
-            { name: "MongoDB", note: "Familiar" },
-            { name: "SQL", note: "Familiar" },
+            { name: "Flask", note: "familiar" },
+            { name: "MongoDB", note: "familiar" },
+            { name: "SQL", note: "familiar" },
         ],
     },
     {
         id: "gamedev",
-        name: "Game Development",
         skills: [
             { name: "Unity" },
-            { name: "Blender", note: "Basic" },
-            { name: "Unreal Engine", note: "Basic" },
+            { name: "Blender", note: "basic" },
+            { name: "Unreal Engine", note: "basic" },
         ],
     },
 ];
 
 const categories = ["all", ...skillCategories.map((c) => c.id)];
 
-const categoryLabel = (id) =>
-    id === "all" ? "all" : skillCategories.find((c) => c.id === id).name;
-
 export const SkillsSection = () => {
+    const { t } = useLanguage();
     const [activeCategory, setActiveCategory] = useState("all");
+
+    const categoryLabel = (id) => (id === "all" ? t("skills.all") : t(`skills.categories.${id}`));
 
     const visibleCategories =
         activeCategory === "all"
@@ -54,7 +54,7 @@ export const SkillsSection = () => {
     <section id="skills" className="py-24 px-4 relative">
         <div className="container mx-auto max-w-5xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-secondary">
-                My <span className="text-primary"> Skills</span>
+                {t("skills.title.lead")} <span className="text-primary">{t("skills.title.accent")}</span>
             </h2>
 
             <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -75,7 +75,7 @@ export const SkillsSection = () => {
                 {visibleCategories.map((category) => (
                     <div key={category.id}>
                         <h3 className="text-lg font-semibold text-secondary mb-4 text-center md:text-left">
-                            {category.name}
+                            {categoryLabel(category.id)}
                         </h3>
                         <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                             {category.skills.map((skill) => (
@@ -86,7 +86,7 @@ export const SkillsSection = () => {
                                     {skill.name}
                                     {skill.note && (
                                         <span className="ml-1.5 text-xs text-primary-foreground/60">
-                                            · {skill.note}
+                                            · {t(`skills.notes.${skill.note}`)}
                                         </span>
                                     )}
                                 </span>

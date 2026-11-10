@@ -1,23 +1,26 @@
 
 import { Mail, Phone, MapPin, Github, Linkedin } from "lucide-react";
+import { useLanguage } from "../i18n/useLanguage";
 
 export const ContactSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="py-24 px-4 bg-muted/30">
       <div className="container mx-auto max-w-4xl text-center">
-        
+
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Get in <span className="text-primary">Touch</span>
+          {t("contact.title.lead")} <span className="text-primary">{t("contact.title.accent")}</span>
         </h2>
 
         <p className="text-primary-foreground mb-12 max-w-xl mx-auto">
-          I’m based in Espoo, Finland :) always open to new opportunities, collaborations, or just a friendly chat.
+          {t("contact.intro")}
         </p>
 
         <div className="grid sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
 
           {/* Email */}
-          <a 
+          <a
             href="mailto:brandon.bosquez@outlook.com"
             className="flex items-center justify-center gap-3 p-4 rounded-lg bg-card/70 shadow hover:shadow-md transition"
           >
@@ -26,7 +29,7 @@ export const ContactSection = () => {
           </a>
 
           {/* Phone */}
-          <a 
+          <a
             href="tel:+358451662415"
             className="flex items-center justify-center gap-3 p-4 rounded-lg bg-card/70 shadow hover:shadow-md transition"
           >
@@ -37,7 +40,7 @@ export const ContactSection = () => {
           {/* Location */}
           <div className="flex items-center justify-center gap-3 p-4 rounded-lg bg-card/60 shadow">
             <MapPin className="w-5 h-5 text-secondary" />
-            <span className="text-secondary">Espoo, Finland</span>
+            <span className="text-secondary">{t("contact.location")}</span>
           </div>
 
           {/* Socials */}
